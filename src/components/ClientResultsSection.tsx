@@ -1,42 +1,26 @@
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 
-const clients = [
-  { name: "Anthony's World", niche: "Trading Niche", views: "5M+ Views", subs: "100K+ Subs" },
-  { name: "Spencer Pawliw", niche: "Ecom Niche", views: "1M+ Views", subs: "7K+ Subs" },
-  { name: "Nathan Nazareth", niche: "Dropshipping Niche", views: "15M+ Views", subs: "500K+ Subs" },
-  { name: "Lucy Wang", niche: "AWS Niche", views: "8M+ Views", subs: "100K+ Subs" },
-  { name: "Elise Pham", niche: "Academics Niche", views: "120M+ Views", subs: "460K+ Subs" },
-];
-
 const ClientResultsSection = () => {
+  const [clients, setClients] = useState<any[]>([]);
+
+  useEffect(() => {
+    supabase.from("client_results").select("*").eq("is_active", true).order("sort_order").then(({ data }) => setClients(data ?? []));
+  }, []);
+
   return (
     <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        <p className="text-primary text-sm font-semibold uppercase tracking-wider text-center mb-3">
-          feedback
-        </p>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-display font-bold text-center mb-16"
-        >
+        <p className="text-primary text-sm font-semibold uppercase tracking-wider text-center mb-3">feedback</p>
+        <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-display font-bold text-center mb-16">
           How we <span className="gradient-text">Benefit Our Clients</span>
         </motion.h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {clients.map((client, i) => (
-            <motion.div
-              key={client.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-card p-6"
-            >
-              <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center text-xl font-bold text-primary mb-4">
-                {client.name.charAt(0)}
-              </div>
+            <motion.div key={client.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass-card p-6">
+              <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center text-xl font-bold text-primary mb-4">{client.name.charAt(0)}</div>
               <h3 className="text-foreground font-display font-bold text-lg">{client.name}</h3>
               <p className="text-primary text-sm mb-4">{client.niche}</p>
               <div className="flex gap-4">
