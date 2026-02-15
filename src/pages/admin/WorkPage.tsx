@@ -30,6 +30,7 @@ const WorkPage = () => {
     { key: "category_id", label: "Category", type: "select", options: catOptions, required: true },
     { key: "title", label: "Title", required: true },
     { key: "description", label: "Description" },
+    { key: "video_url", label: "Video", type: "video" },
     { key: "sort_order", label: "Order", type: "number" },
   ];
 

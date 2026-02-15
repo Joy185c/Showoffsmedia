@@ -5,11 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Pencil, Trash2, Plus, Save, X } from "lucide-react";
 import { toast } from "sonner";
+import VideoUpload from "./VideoUpload";
 
 export interface FieldConfig {
   key: string;
   label: string;
-  type?: "text" | "textarea" | "number" | "boolean" | "select";
+  type?: "text" | "textarea" | "number" | "boolean" | "select" | "video";
   options?: { label: string; value: string }[];
   required?: boolean;
 }
@@ -78,6 +79,9 @@ const CrudTable = ({ tableName, fields, data, onRefresh, title }: CrudTableProps
   };
 
   const renderInput = (field: FieldConfig, value: any, onChange: (val: any) => void) => {
+    if (field.type === "video") {
+      return <VideoUpload value={value ?? ""} onChange={onChange} />;
+    }
     if (field.type === "textarea") {
       return (
         <textarea

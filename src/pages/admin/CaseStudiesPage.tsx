@@ -8,6 +8,7 @@ const fields: FieldConfig[] = [
   { key: "stat1_label", label: "Stat 1 Label" },
   { key: "stat2_value", label: "Stat 2 Value" },
   { key: "stat2_label", label: "Stat 2 Label" },
+  { key: "video_url", label: "Video", type: "video" },
   { key: "sort_order", label: "Order", type: "number" },
   { key: "is_active", label: "Active", type: "boolean" },
 ];

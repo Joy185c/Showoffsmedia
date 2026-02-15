@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import VideoPlayer from "./VideoPlayer";
 
 const CaseStudySection = () => {
   const [studies, setStudies] = useState<any[]>([]);
@@ -40,10 +41,16 @@ const CaseStudySection = () => {
                 Book a 30 min call <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
-            <div className="flex-1 aspect-video bg-secondary rounded-xl flex items-center justify-center">
-              <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center">
-                <div className="w-0 h-0 border-t-transparent border-b-transparent ml-1" style={{ borderLeftWidth: '18px', borderLeftColor: 'hsl(230 80% 60%)', borderTopWidth: '12px', borderBottomWidth: '12px' }} />
-              </div>
+            <div className="flex-1 aspect-video rounded-xl overflow-hidden bg-secondary">
+              {cs.video_url ? (
+                <VideoPlayer src={cs.video_url} className="w-full h-full" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center">
+                    <div className="w-0 h-0 border-t-transparent border-b-transparent ml-1" style={{ borderLeftWidth: '18px', borderLeftColor: 'hsl(var(--primary))', borderTopWidth: '12px', borderBottomWidth: '12px' }} />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </motion.div>
