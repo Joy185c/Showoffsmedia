@@ -9,7 +9,9 @@ const HeroSection = () => {
   useEffect(() => {
     supabase.from("site_content").select("*").then(({ data }) => {
       const map: Record<string, string> = {};
-      data?.forEach((item) => { map[item.key] = item.value; });
+      data?.forEach((item) => {
+        map[item.key] = item.value;
+      });
       setContent(map);
     });
   }, []);
@@ -27,26 +29,49 @@ const HeroSection = () => {
         className="relative z-10 max-w-4xl"
       >
         <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight mb-6">
-          <span className="text-muted-foreground">{content.hero_title_1 || "Get More Leads"}</span>
+          <span className="text-muted-foreground">
+            {content.hero_title_1 || "Get More Leads"}
+          </span>
           <br />
-          Using <span className="gradient-text">{content.hero_title_2 || "Quality Video Content"}</span>
+          <span className="gradient-text">
+            {content.hero_title_2 || "Quality Video Content"}
+          </span>
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-          {content.hero_subtitle || "We help entrepreneurs and businesses with Done-For-You organic content systems that generate leads on autopilot."}
+          {content.hero_subtitle ||
+            "We help entrepreneurs and businesses with Done-For-You organic content systems that generate leads on autopilot."}
         </p>
 
+        {/* SOCIAL PROOF SECTION */}
         <div className="flex items-center justify-center gap-3 mb-10">
           <div className="flex -space-x-3">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="w-10 h-10 rounded-full bg-secondary border-2 border-background flex items-center justify-center text-xs font-bold text-muted-foreground">
-                {String.fromCharCode(64 + i)}
+            {[
+              "/avatars/client1.jpeg",
+              "/avatars/client2.jpeg",
+              "/avatars/client3.jpeg",
+              "/avatars/client4.jpeg",
+            ].map((src, i) => (
+              <div
+                key={src}
+                className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-background shadow-md"
+              >
+                <img
+                  src={src}
+                  alt={`client-${i + 1}`}
+                  className="w-full h-full object-cover"
+                />
               </div>
             ))}
           </div>
+
           <div className="text-left">
-            <p className="text-sm font-semibold text-foreground">{content.hero_social_proof || "Loved by 500+ Businesses worldwide."}</p>
-            <p className="text-xs text-muted-foreground">{content.hero_social_sub || "Our Clients Speak for Us"}</p>
+            <p className="text-sm font-semibold text-foreground">
+              {content.hero_social_proof || "Loved by 500+ Businesses worldwide."}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              {content.hero_social_sub || "Our Clients Speak for Us"}
+            </p>
           </div>
         </div>
 

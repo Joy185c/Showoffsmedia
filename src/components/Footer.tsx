@@ -6,7 +6,8 @@ const Footer = () => {
           ShowOffs<span className="text-primary"> Media</span>
         </p>
         <p className="text-muted-foreground text-sm">
-          © {new Date().getFullYear()} ShowOffs Media. All rights reserved.
+          © {new Date().getFullYear()} ShowOffs Media. All rights reserved.Developed & Maintained by Joy Sarkar
+.
         </p>
       </div>
     </footer>

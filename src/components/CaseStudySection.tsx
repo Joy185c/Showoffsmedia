@@ -17,9 +17,9 @@ const CaseStudySection = () => {
   return (
     <section id="case-studies" className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        <p className="text-primary text-sm font-semibold uppercase tracking-wider text-center mb-3">case studies</p>
+        <p className="text-primary text-sm font-semibold uppercase tracking-wider text-center mb-3">ROADMAP</p>
         <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-display font-bold text-center mb-16">
-          Some solid <span className="gradient-text">Case studies</span>
+          Content  <span className="gradient-text">Blueprint</span>
         </motion.h2>
 
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass-card p-8 md:p-12">

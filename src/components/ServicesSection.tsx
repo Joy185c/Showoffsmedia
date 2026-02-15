@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
-import { Play, Film, Monitor, Megaphone, Video, Mic, type LucideIcon } from "lucide-react";
+import { Play, Film, Monitor, Megaphone, Video, Mic,type LucideIcon } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = { Play, Film, Monitor, Megaphone, Video, Mic };
 
