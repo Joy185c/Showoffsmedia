@@ -26,6 +26,7 @@ export type Database = {
           stat1_value: string
           stat2_label: string
           stat2_value: string
+          video_url: string | null
         }
         Insert: {
           created_at?: string
@@ -38,6 +39,7 @@ export type Database = {
           stat1_value?: string
           stat2_label?: string
           stat2_value?: string
+          video_url?: string | null
         }
         Update: {
           created_at?: string
@@ -50,6 +52,7 @@ export type Database = {
           stat1_value?: string
           stat2_label?: string
           stat2_value?: string
+          video_url?: string | null
         }
         Relationships: []
       }
@@ -275,6 +278,7 @@ export type Database = {
           quote: string
           role: string
           sort_order: number
+          video_url: string | null
         }
         Insert: {
           created_at?: string
@@ -284,6 +288,7 @@ export type Database = {
           quote?: string
           role?: string
           sort_order?: number
+          video_url?: string | null
         }
         Update: {
           created_at?: string
@@ -293,6 +298,7 @@ export type Database = {
           quote?: string
           role?: string
           sort_order?: number
+          video_url?: string | null
         }
         Relationships: []
       }
@@ -346,6 +352,7 @@ export type Database = {
           id: string
           sort_order: number
           title: string
+          video_url: string | null
         }
         Insert: {
           category_id: string
@@ -354,6 +361,7 @@ export type Database = {
           id?: string
           sort_order?: number
           title: string
+          video_url?: string | null
         }
         Update: {
           category_id?: string
@@ -362,6 +370,7 @@ export type Database = {
           id?: string
           sort_order?: number
           title?: string
+          video_url?: string | null
         }
         Relationships: [
           {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import VideoPlayer from "./VideoPlayer";
 
 const TestimonialsSection = () => {
   const [testimonials, setTestimonials] = useState<any[]>([]);
@@ -21,6 +22,11 @@ const TestimonialsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <motion.div key={t.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass-card p-6 flex flex-col">
+              {t.video_url && (
+                <div className="mb-4 rounded-lg overflow-hidden aspect-video">
+                  <VideoPlayer src={t.video_url} className="w-full h-full" />
+                </div>
+              )}
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-primary text-primary" />)}
               </div>
