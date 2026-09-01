@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl">
-      <div className="glass-card flex items-center justify-between px-6 py-3">
+      <div className="bg-background/40 backdrop-blur-3xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] rounded-2xl flex items-center justify-between px-6 py-4">
         <a href="#" className="font-display text-xl font-bold text-foreground tracking-tight">
           ShowOffs<span className="text-primary"> Media</span>
         </a>

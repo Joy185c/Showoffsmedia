@@ -6,16 +6,16 @@
 
 @layer base {
   :root {
-    --background: 228 12% 8%;
-    --foreground: 210 40% 96%;
+    --background: 240 10% 4%;
+    --foreground: 210 40% 98%;
 
-    --card: 228 14% 12%;
-    --card-foreground: 210 40% 96%;
+    --card: 240 10% 6%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 228 14% 12%;
-    --popover-foreground: 210 40% 96%;
+    --popover: 240 10% 6%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 230 80% 60%;
+    --primary: 270 80% 60%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 228 14% 16%;
@@ -76,11 +76,35 @@
 
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(230 80% 70%), hsl(260 70% 65%), hsl(230 80% 60%));
+    background-image: linear-gradient(135deg, hsl(270 80% 70%), hsl(320 80% 65%), hsl(270 80% 60%));
+  }
+
+  .animated-gradient-text {
+    background: linear-gradient(to right, #4facfe, #00f2fe, #4facfe);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: text-gradient 3s linear infinite;
+  }
+
+  @keyframes text-gradient {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .glow-button {
+    background: linear-gradient(135deg, hsl(270, 80%, 60%), hsl(320, 80%, 55%));
+    box-shadow: 0 0 20px 5px hsl(270, 80%, 60%, 0.4), inset 0 0 10px hsl(0, 0%, 100%, 0.2);
+    transition: all 0.3s ease;
+  }
+  .glow-button:hover {
+    box-shadow: 0 0 40px 10px hsl(320, 80%, 55%, 0.6), inset 0 0 15px hsl(0, 0%, 100%, 0.3);
+    transform: translateY(-2px);
   }
 
   .glass-card {
-    @apply bg-card/60 backdrop-blur-xl border border-border/50 rounded-2xl;
+    @apply bg-card/40 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-xl;
   }
 
   .section-glow {
@@ -95,7 +119,7 @@
     transform: translate(-50%, -50%);
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, hsl(230 80% 60% / 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, hsl(270 80% 60% / 0.15) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
   }

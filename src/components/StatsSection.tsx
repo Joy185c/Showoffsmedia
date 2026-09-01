@@ -1,6 +1,43 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { motion } from "framer-motion";
+import { motion, useInView, animate } from "framer-motion";
+
+const AnimatedCounter = ({ value }: { value: string }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [displayValue, setDisplayValue] = useState("0");
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (!value) return;
+    
+    // Parse the value to separate prefix, number, and suffix (e.g. "+", "211", "%")
+    const match = value.match(/^(\D*)(\d+[\.,]?\d*)(\D*)$/);
+    if (!match) {
+      setDisplayValue(value);
+      return;
+    }
+
+    const prefix = match[1] || "";
+    const targetNumber = parseFloat(match[2].replace(/,/g, ''));
+    const suffix = match[3] || "";
+    const isDecimal = match[2].includes('.');
+
+    if (isInView) {
+      const controls = animate(0, targetNumber, {
+        duration: 2,
+        ease: "easeOut",
+        onUpdate(v) {
+          const formattedNum = isDecimal ? v.toFixed(1) : Math.floor(v).toString();
+          setDisplayValue(`${prefix}${formattedNum}${suffix}`);
+        },
+      });
+
+      return () => controls.stop();
+    }
+  }, [value, isInView]);
+
+  return <span ref={ref}>{displayValue}</span>;
+};
 
 const StatsSection = () => {
   const [stats, setStats] = useState<any[]>([]);
@@ -42,7 +79,9 @@ const StatsSection = () => {
               transition={{ delay: i * 0.15 }}
               className="glass-card p-8 text-center"
             >
-              <p className="text-5xl md:text-6xl font-display font-bold gradient-text mb-3">{stat.value}</p>
+              <p className="text-5xl md:text-6xl font-display font-bold gradient-text mb-3">
+                <AnimatedCounter value={stat.value} />
+              </p>
               <p className="text-foreground font-semibold text-lg mb-1">{stat.label}</p>
               <p className="text-muted-foreground text-sm">{stat.sub}</p>
             </motion.div>

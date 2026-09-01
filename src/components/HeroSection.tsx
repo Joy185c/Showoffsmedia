@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Star } from "lucide-react";
 import { motion } from "framer-motion";
 
 const HeroSection = () => {
@@ -33,7 +33,7 @@ const HeroSection = () => {
             {content.hero_title_1 || "Get More Leads"}
           </span>
           <br />
-          <span className="gradient-text">
+          <span className="animated-gradient-text">
             {content.hero_title_2 || "Using Quality Video Content"}
           </span>
         </h1>
@@ -43,44 +43,51 @@ const HeroSection = () => {
             "We help entrepreneurs and businesses with Done-For-You organic content systems that generate leads on autopilot."}
         </p>
 
-        {/* SOCIAL PROOF SECTION */}
-        <div className="flex items-center justify-center gap-3 mb-10">
-          <div className="flex -space-x-3">
-            {[
-              "/avatars/client1.jpeg",
-              "/avatars/client2.jpeg",
-              "/avatars/client3.jpeg",
-              "/avatars/client4.jpeg",
-            ].map((src, i) => (
-              <div
-                key={src}
-                className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-background shadow-md"
-              >
-                <img
-                  src={src}
-                  alt={`client-${i + 1}`}
-                  className="w-full h-full object-cover"
-                />
+        <div className="flex flex-col items-center">
+          {/* SOCIAL PROOF MARQUEE */}
+          <div className="flex items-center gap-4 p-1.5 pr-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl mb-8 shadow-lg w-[90vw] max-w-[500px] overflow-hidden">
+            <div className="flex -space-x-3 shrink-0 pl-2">
+              {[
+                "/avatars/client1.jpeg",
+                "/avatars/client2.jpeg",
+                "/avatars/client3.jpeg",
+                "/avatars/client4.jpeg",
+              ].map((src, i) => (
+                <div
+                  key={src}
+                  className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-background shadow-sm z-10"
+                >
+                  <img
+                    src={src}
+                    alt={`client-${i + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+              <div className="relative w-9 h-9 rounded-full bg-primary/20 backdrop-blur-md flex items-center justify-center text-[10px] font-bold text-primary border-2 border-background z-20">
+                40+
               </div>
-            ))}
+            </div>
+
+            <div className="flex-1 overflow-hidden relative [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+              <div className="flex whitespace-nowrap animate-scroll-left w-max">
+                <span className="text-sm font-medium text-foreground px-4">
+                  {content.hero_social_proof || "Value And Guarantee. Don't Miss Out - Secure Your Brand's Future Today. Why Risk It."}
+                </span>
+                <span className="text-sm font-medium text-foreground px-4">
+                  {content.hero_social_proof || "Value And Guarantee. Don't Miss Out - Secure Your Brand's Future Today. Why Risk It."}
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div className="text-left">
-            <p className="text-sm font-semibold text-foreground">
-              {content.hero_social_proof || "Loved by 500+ Businesses worldwide."}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {content.hero_social_sub || "Our Clients Speak for Us"}
-            </p>
-          </div>
+          <a
+            href="#book-a-call"
+            className="glow-button inline-flex items-center gap-2 text-white px-10 py-4 rounded-2xl text-lg font-bold mb-12"
+          >
+            Book A Call <ArrowUpRight className="w-5 h-5" />
+          </a>
         </div>
-
-        <a
-          href="#book-a-call"
-          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-2xl text-lg font-bold hover:bg-primary/90 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(var(--primary),0.6)] transition-all duration-300 mb-12"
-        >
-          Book A Call <ArrowUpRight className="w-5 h-5" />
-        </a>
       </motion.div>
     </section>
   );
