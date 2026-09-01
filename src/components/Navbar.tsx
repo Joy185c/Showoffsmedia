@@ -3,7 +3,8 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { label: "Reviews", href: "#testimonials" },
+  { label: "Home", href: "#" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Work", href: "#work" },
   { label: "Roadmap", href: "#case-studies" },
   { label: "Process", href: "#process" },

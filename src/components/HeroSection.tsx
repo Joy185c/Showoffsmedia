@@ -17,7 +17,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
+    <section className="relative flex flex-col items-center justify-center text-center px-4 pt-32 pb-8 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/10 blur-[120px]" />
       </div>
@@ -26,15 +26,15 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 max-w-4xl"
+        className="relative z-10 w-full max-w-[1200px] mx-auto"
       >
-        <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight mb-6">
-          <span className="text-muted-foreground">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-display font-bold tracking-tight leading-[1.1] mb-6">
+          <span className="text-foreground">
             {content.hero_title_1 || "Get More Leads"}
           </span>
           <br />
           <span className="gradient-text">
-            {content.hero_title_2 || "Quality Video Content"}
+            {content.hero_title_2 || "Using Quality Video Content"}
           </span>
         </h1>
 
@@ -77,7 +77,7 @@ const HeroSection = () => {
 
         <a
           href="#book-a-call"
-          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-xl text-base font-semibold hover:bg-primary/90 transition-all glow-blue"
+          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-2xl text-lg font-bold hover:bg-primary/90 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(var(--primary),0.6)] transition-all duration-300 mb-12"
         >
           Book A Call <ArrowUpRight className="w-5 h-5" />
         </a>
