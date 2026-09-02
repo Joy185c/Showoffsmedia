@@ -11,7 +11,7 @@ const TestimonialsSection = () => {
   const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
   
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: 'center', skipSnaps: false },
+    { loop: true, align: 'center', skipSnaps: false, containScroll: false },
     [Autoplay({ delay: 3500, stopOnInteraction: true, stopOnMouseEnter: true })]
   );
   
@@ -67,19 +67,46 @@ const TestimonialsSection = () => {
     setPlayingVideoId(null);
   };
 
+  useEffect(() => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      if (playingVideoId) {
+        const target = e.target as Element;
+        // If they clicked the video card or the close button, do nothing
+        if (target.closest('.video-card') || target.closest('.close-modal-btn')) {
+          return;
+        }
+        handleCloseModal();
+      }
+    };
+    
+    if (playingVideoId) {
+      // Use setTimeout to avoid catching the initial play click that triggered this
+      const timer = setTimeout(() => {
+        window.addEventListener('click', handleGlobalClick);
+      }, 100);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('click', handleGlobalClick);
+      };
+    }
+  }, [playingVideoId]);
+
   const activeVideoId = testimonials[selectedIndex]?.id;
 
   useEffect(() => {
-    if (!emblaApi || testimonials.length === 0) return;
+    if (!emblaApi) return;
     const autoplay = emblaApi.plugins().autoplay;
     if (!autoplay) return;
     
     if (playingVideoId) {
       autoplay.stop();
     } else {
-      autoplay.play();
+      // Ensure Embla has processed the slides before playing
+      if (emblaApi.slideNodes().length > 0) {
+        autoplay.play();
+      }
     }
-  }, [emblaApi, playingVideoId, testimonials.length]);
+  }, [emblaApi, playingVideoId, testimonials]);
 
   return (
     <section id="testimonials" className="py-24 px-4 relative">
@@ -90,7 +117,7 @@ const TestimonialsSection = () => {
 
       {/* Global Close Button for Modal View */}
       <button 
-        className={`fixed top-6 right-6 sm:top-10 sm:right-10 z-[100] w-12 h-12 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all duration-500 shadow-xl ${playingVideoId ? 'opacity-100 scale-100 cursor-pointer pointer-events-auto' : 'opacity-0 scale-50 pointer-events-none'}`}
+        className={`close-modal-btn fixed top-6 right-6 sm:top-10 sm:right-10 z-[100] w-12 h-12 bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all duration-500 shadow-xl ${playingVideoId ? 'opacity-100 scale-100 cursor-pointer pointer-events-auto' : 'opacity-0 scale-50 pointer-events-none'}`}
         onClick={handleCloseModal}
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -140,8 +167,8 @@ const TestimonialsSection = () => {
                       }
                     }}
                   >
-                    <div 
-                      className={`relative rounded-[2rem] overflow-hidden aspect-[9/16] transition-all duration-700 ease-out border border-white/10 bg-black ${cardClasses}`}
+                      <div 
+                      className={`video-card relative rounded-[2rem] overflow-hidden aspect-[9/16] transition-all duration-700 ease-out border border-white/10 bg-black ${cardClasses}`}
                     >
                       {/* Video Player */}
                       {t.video_url ? (
@@ -154,6 +181,9 @@ const TestimonialsSection = () => {
                             onPlayStateChange={(playing) => {
                               if (playing) {
                                 setPlayingVideoId(t.id);
+                                if (!isActive && emblaApi) {
+                                  emblaApi.scrollTo(i);
+                                }
                               } else if (playingVideoId === t.id) {
                                 setPlayingVideoId(null);
                               }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -34,9 +34,20 @@ const Navbar = () => {
 
         <a
           href="#book-a-call"
-          className="hidden md:inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
+          className="group relative hidden md:inline-flex items-center bg-white text-black h-[44px] rounded-full text-[15px] font-semibold overflow-hidden transition-all duration-500 w-[160px]"
         >
-          Book A Call <ArrowUpRight className="w-4 h-4" />
+          {/* Expanding Background */}
+          <div className="absolute left-[3px] top-[3px] bottom-[3px] w-[38px] bg-primary rounded-full transition-all duration-500 ease-[cubic-bezier(0.5,1,0.89,1)] group-hover:w-[calc(100%-6px)]"></div>
+          
+          {/* Arrow */}
+          <div className="relative z-10 flex items-center justify-center w-[38px] h-[38px] ml-[3px] text-white transition-transform duration-500 ease-[cubic-bezier(0.5,1,0.89,1)] group-hover:translate-x-[116px]">
+            <ArrowRight className="w-4 h-4" />
+          </div>
+          
+          {/* Text */}
+          <span className="relative z-10 ml-2 transition-all duration-500 ease-[cubic-bezier(0.5,1,0.89,1)] group-hover:text-white group-hover:-translate-x-[18px]">
+            Book a Call
+          </span>
         </a>
 
         <button
@@ -68,9 +79,15 @@ const Navbar = () => {
             <a
               href="#book-a-call"
               onClick={() => setMobileOpen(false)}
-              className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-medium"
+              className="group relative inline-flex items-center bg-white text-black h-[44px] rounded-full text-[15px] font-semibold overflow-hidden transition-all duration-500 w-[160px] mx-auto"
             >
-              Book A Call <ArrowUpRight className="w-4 h-4" />
+              <div className="absolute left-[3px] top-[3px] bottom-[3px] w-[38px] bg-primary rounded-full transition-all duration-500 ease-[cubic-bezier(0.5,1,0.89,1)] group-hover:w-[calc(100%-6px)]"></div>
+              <div className="relative z-10 flex items-center justify-center w-[38px] h-[38px] ml-[3px] text-white transition-transform duration-500 ease-[cubic-bezier(0.5,1,0.89,1)] group-hover:translate-x-[116px]">
+                <ArrowRight className="w-4 h-4" />
+              </div>
+              <span className="relative z-10 ml-2 transition-all duration-500 ease-[cubic-bezier(0.5,1,0.89,1)] group-hover:text-white group-hover:-translate-x-[18px]">
+                Book a Call
+              </span>
             </a>
           </motion.div>
         )}

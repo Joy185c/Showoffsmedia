@@ -17,7 +17,7 @@ const navItems = [
   { label: "Comparison", to: "/admin/comparison", icon: GitCompare },
   { label: "Process", to: "/admin/process", icon: ListOrdered },
   { label: "Services", to: "/admin/services", icon: Wrench },
-  { label: "Clients", to: "/admin/clients", icon: Users },
+  { label: "Feedback", to: "/admin/clients", icon: Users },
   { label: "FAQs", to: "/admin/faqs", icon: HelpCircle },
   { label: "User Roles", to: "/admin/roles", icon: Settings },
 ];

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import VideoPlayer from "./VideoPlayer";
 
@@ -37,8 +37,22 @@ const CaseStudySection = () => {
                   <p className="text-sm text-muted-foreground">{cs.stat2_label}</p>
                 </div>
               </div>
-              <a href="#book-a-call" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
-                Book a 30 min call <ArrowUpRight className="w-4 h-4" />
+              <a
+                href="#book-a-call"
+                className="group relative inline-flex items-center bg-white text-black h-[44px] rounded-full text-[15px] font-semibold overflow-hidden transition-all duration-500 w-[210px]"
+              >
+                {/* Expanding Background */}
+                <div className="absolute left-[3px] top-[3px] bottom-[3px] w-[38px] bg-primary rounded-full transition-all duration-500 ease-[cubic-bezier(0.5,1,0.89,1)] group-hover:w-[calc(100%-6px)]"></div>
+                
+                {/* Arrow */}
+                <div className="relative z-10 flex items-center justify-center w-[38px] h-[38px] ml-[3px] text-white transition-transform duration-500 ease-[cubic-bezier(0.5,1,0.89,1)] group-hover:translate-x-[166px]">
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+                
+                {/* Text */}
+                <span className="relative z-10 ml-2 transition-all duration-500 ease-[cubic-bezier(0.5,1,0.89,1)] group-hover:text-white group-hover:-translate-x-[12px]">
+                  Book a 30 min call
+                </span>
               </a>
             </div>
             <div className="flex-1 aspect-video rounded-xl overflow-hidden bg-secondary">

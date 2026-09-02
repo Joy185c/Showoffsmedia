@@ -146,6 +146,35 @@ const VideoPlayer = ({ src, subtitleSrc, className = "", muted = true, loop = tr
     }
   }, [playbackSpeed, videoInfo.type]);
 
+  // Auto-mute when scrolled out of view
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting && !isMuted) {
+          setIsMuted(true);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    observer.observe(containerRef.current);
+    
+    return () => observer.disconnect();
+  }, [isMuted]);
+
+  // Sync mute state to YouTube iframe
+  useEffect(() => {
+    if (isYouTube && iframeRef.current) {
+      const command = isMuted ? 'mute' : 'unMute';
+      iframeRef.current.contentWindow?.postMessage(JSON.stringify({
+        event: 'command',
+        func: command,
+        args: []
+      }), '*');
+    }
+  }, [isMuted, isYouTube]);
+
   const togglePlay = () => {
     const nextState = !isActuallyPlaying;
     if (isPlayingProp === undefined) {
@@ -251,7 +280,7 @@ const VideoPlayer = ({ src, subtitleSrc, className = "", muted = true, loop = tr
           <iframe 
             ref={iframeRef}
             key={videoInfo.id}
-            src={`https://www.youtube.com/embed/${videoInfo.id}?rel=0&playsinline=1&enablejsapi=1${autoPlay ? '&autoplay=1' : ''}`}
+            src={`https://www.youtube.com/embed/${videoInfo.id}?rel=0&playsinline=1&enablejsapi=1${autoPlay ? '&autoplay=1' : ''}${muted ? '&mute=1' : ''}`}
             className={`w-full h-full border-0 z-10 ${isActiveCard ? 'pointer-events-auto' : 'pointer-events-none'}`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

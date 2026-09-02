@@ -130,7 +130,16 @@ const CrudTable = ({ tableName, fields, data, onRefresh, title }: CrudTableProps
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-display font-bold text-foreground">{title}</h1>
-        <Button onClick={() => { setAdding(true); setNewData({}); }} size="sm">
+        <Button onClick={() => { 
+          const defaultData: Record<string, any> = {};
+          fields.forEach(f => {
+            if (f.type === "select" && f.options && f.options.length > 0) {
+              defaultData[f.key] = f.options[0].value;
+            }
+          });
+          setAdding(true); 
+          setNewData(defaultData); 
+        }} size="sm">
           <Plus className="w-4 h-4 mr-1" /> Add New
         </Button>
       </div>
